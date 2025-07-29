@@ -1,0 +1,8 @@
+<h2>Available Books</h2>
+<p *ngIf="message">{{ message }}</p>
+<ul>
+  <li *ngFor="let book of availableBooks">
+    {{ book.title }} by {{ book.author }}
+    <button (click)="borrow(book.id)">Borrow</button>
+  </li>
+</ul>

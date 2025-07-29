@@ -1,0 +1,26 @@
+.borrowed-books {
+    padding: 1rem;
+  }
+  
+  .book-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  button {
+    margin-top: 0.5rem;
+    padding: 6px 12px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0d47a1;
+  }
+  

@@ -1,0 +1,19 @@
+/* src/app/admin/transactions/transactions.component.css */
+.transactions-container {
+  padding: 20px;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions-table th, .transactions-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.transactions-table th {
+  background-color: #f5f5f5;
+}

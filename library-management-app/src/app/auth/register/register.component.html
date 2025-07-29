@@ -1,0 +1,26 @@
+<h2>Register</h2>
+
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <label>Name:</label>
+  <input type="text" formControlName="name" /><br />
+
+  <label>Email:</label>
+  <input type="email" formControlName="email" /><br />
+
+  <label>Password:</label>
+  <input type="password" formControlName="password" /><br />
+
+  <label>Role:</label>
+  <select formControlName="role">
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+  </select><br /><br />
+
+  <button type="submit">Register</button>
+  <p>
+    If you already have an account?
+    <a style="cursor: pointer;" (click)="clickLogin()">Login</a>
+  </p>
+</form>
+
+<p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>

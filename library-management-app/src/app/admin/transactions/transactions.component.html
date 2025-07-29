@@ -1,0 +1,26 @@
+<!-- src/app/admin/transactions/transactions.component.html -->
+<div class="transactions-container">
+    <h2>All Transactions</h2>
+  
+    <table class="transactions-table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Book</th>
+          <th>Borrowed Date</th>
+          <th>Return Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td>{{ getUserName(transaction.userId) }}</td>
+          <td>{{ getBookTitle(transaction.bookId) }}</td>
+          <td>{{ transaction.borrowedDate | date: 'shortDate' }}</td>
+          <td>{{ transaction.returnDate ? (transaction.returnDate | date: 'shortDate') : 'Not returned' }}</td>
+          <td>{{ transaction.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

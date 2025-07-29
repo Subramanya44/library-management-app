@@ -1,0 +1,21 @@
+<div class="container">
+    <h2>{{ bookId ? 'Edit Book' : 'Add New Book' }}</h2>
+    <form [formGroup]="bookForm" (ngSubmit)="saveBook()">
+      <label>Title:</label>
+      <input type="text" formControlName="title" />
+  
+      <label>Author:</label>
+      <input type="text" formControlName="author" />
+  
+      <label>Category:</label>
+      <input type="text" formControlName="category" />
+  
+      <label>Quantity:</label>
+      <input type="number" formControlName="quantity" />
+  
+      <button type="submit" [disabled]="bookForm.invalid">
+        {{ bookId ? 'Update' : 'Add' }}
+      </button>
+    </form>
+  </div>
+  
