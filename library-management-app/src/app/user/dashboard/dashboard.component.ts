@@ -1,32 +1,43 @@
-import { Component } from '@angular/core';
-import { BookService } from '../../core/book.service';
-import { Book } from '../../models/book.model';
-import { AuthService } from '../../core/auth.service';
-import { User } from '../../models/user.model';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../core/auth.service';
+import { BookService } from '../../core/book.service';
+import { TransactionService } from '../../core/transaction.service';
+import { User } from '../../models/user.model';
+import { Book } from '../../models/book.model';
+import { Transaction } from '../../models/transaction.model';
 
 @Component({
-  selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  selector: 'app-user-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css'],
+  imports: [CommonModule]
 })
-export class DashboardComponent {
-  currentUser: User | null = null;
+export class DashboardComponent implements OnInit {
+  user: User | null = null;
   books: Book[] = [];
+  transactions: Transaction[] = [];
+
+  totalBooks = 0;
+  borrowedBooks = 0;
+  activeTransactions = 0;
 
   constructor(
+    private authService: AuthService,
     private bookService: BookService,
-    private authService: AuthService
+    private transactionService: TransactionService
   ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.authService.getCurrentUser();
-    this.loadBooks();
-  }
-
-  loadBooks(): void {
+    this.user = this.authService.getCurrentUser();
     this.books = this.bookService.getBooks();
+  
+    this.transactions = this.transactionService.getTransactionsByUser(String(this.user?.id || '0'));
+
+    this.totalBooks = this.books.length;
+    this.borrowedBooks = this.transactions.filter(t => !t.returnDate).length;
+    this.activeTransactions = this.transactions.length;
   }
+  
 }

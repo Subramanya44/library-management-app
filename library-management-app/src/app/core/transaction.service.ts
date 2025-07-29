@@ -74,4 +74,10 @@ export class TransactionService {
   private saveToLocalStorage(): void {
     localStorage.setItem('transactions', JSON.stringify(this.transactions));
   }
+
+  getTransactionsByUser(userId: string): Transaction[] {
+    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+    return transactions.filter((t: Transaction) => Number(t.userId) === Number(userId));
+  }
+  
 }
