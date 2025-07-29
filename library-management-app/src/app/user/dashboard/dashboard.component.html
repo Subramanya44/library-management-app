@@ -1,20 +1,19 @@
-<div class="dashboard-container">
-    <h2>Welcome, {{ currentUser?.name || 'User' }}!</h2>
-    <p>Email: {{ currentUser?.email }}</p>
+<div class="dashboard" *ngIf="user">
+    <h2>Welcome, {{ user.name }} 👋</h2>
   
-    <h3>Available Books</h3>
-    <div *ngIf="books.length > 0; else noBooks">
-      <ul>
-        <li *ngFor="let book of books">
-          <strong>{{ book.title }}</strong> by {{ book.author }}
-          <span *ngIf="book.available">✔️ Available</span>
-          <span *ngIf="!book.available">❌ Not Available</span>
-        </li>
-      </ul>
+    <div class="card-container">
+      <div class="card">
+        <h3>Total Books</h3>
+        <p>{{ totalBooks }}</p>
+      </div>
+      <div class="card">
+        <h3>Books Borrowed</h3>
+        <p>{{ borrowedBooks }}</p>
+      </div>
+      <div class="card">
+        <h3>Active Transactions</h3>
+        <p>{{ activeTransactions }}</p>
+      </div>
     </div>
-  
-    <ng-template #noBooks>
-      <p>No books available.</p>
-    </ng-template>
   </div>
   
