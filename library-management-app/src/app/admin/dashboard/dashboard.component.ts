@@ -2,36 +2,42 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookService } from '../../core/book.service';
 import { TransactionService } from '../../core/transaction.service';
-import { User } from '../../models/user.model';
+import { AuthService } from '../../core/auth.service';
 import { Book } from '../../models/book.model';
 import { Transaction } from '../../models/transaction.model';
+import { User } from '../../models/user.model';
 
 @Component({
-  selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css'],
+  imports: [CommonModule]
 })
 export class DashboardComponent implements OnInit {
+  books: Book[] = [];
+  transactions: Transaction[] = [];
+  users: User[] = [];
+
   totalBooks = 0;
-  totalUsers = 0;
   totalTransactions = 0;
-  borrowedBooks = 0;
+  activeBorrowings = 0;
+  totalUsers = 0;
 
   constructor(
     private bookService: BookService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const books: Book[] = this.bookService.getBooks();
-    const transactions: Transaction[] = this.transactionService.getAllTransactions();
-    const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+    this.books = this.bookService.getBooks();
+    this.transactions = this.transactionService.getAllTransactions();
+    this.users = this.authService.getAllUsers();
 
-    this.totalBooks = books.length;
-    this.totalUsers = users.length;
-    this.totalTransactions = transactions.length;
-    this.borrowedBooks = transactions.filter(t => !t.returnDate).length;
+    this.totalBooks = this.books.length;
+    this.totalTransactions = this.transactions.length;
+    this.activeBorrowings = this.transactions.filter(t => !t.returnDate).length;
+    this.totalUsers = this.users.filter(u => u.role === 'user').length;
   }
 }

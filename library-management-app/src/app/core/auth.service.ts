@@ -89,4 +89,9 @@ export class AuthService {
     return true;
   }
   
+  getAllUsers(): User[] {
+    const usersData = localStorage.getItem('users');
+    return usersData ? JSON.parse(usersData) : [];
+  }
+  
 }
